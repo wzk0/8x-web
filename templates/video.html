@@ -1068,6 +1068,7 @@ body .markdown-body
 .highlight .il{color:#009999}
 .highlight .gc{color:#999;background-color:#EAF2F5}
 </style><title>Not 8X │ {{ data['name'] }}</title></head><body><article class="markdown-body"><h1 id="not-8x"><strong><a href="/">Not 8X</a></strong><h5>{{ word }}</h5><a class="headerlink" href="#not-8x" title="Permanent link"></a></h1>
+<h4 id="_1"><strong><a href="/about">关于</a> │ <a href="https://github.com/wzk0/8x-web">源代码</a> │ {% if user %}<a href="/star">收藏夹</a> │ <a href="/logout">登出</a>{% else %}<a href="/login">注册/登陆</a>{% endif %}</strong><a class="headerlink" href="#_1" title="Permanent link"></a></h4>
 <blockquote>
 <p>正所谓小lu<strong>怡情</strong>, 大lu<strong>伤身</strong>…🙏</p>
 </blockquote>
@@ -1082,7 +1083,7 @@ body .markdown-body
       container: document.getElementById('dplayer'),
       video: {
         url: '{{ data['download'] }}',
-        pic: '{{ data['background'] }}',
+        pic: '{{ data['pic'] }}',
         preload: 'metamata'
       }
     });
@@ -1095,12 +1096,14 @@ body .markdown-body
 <p><strong>ID: <em>{{ vid }}</em></strong></p>
 </blockquote>
 </blockquote>
-<center><a href="/like/{{ vid }}"><button style="background-color: #fff; border: 1px solid #ccc; border-radius: 10px; color: #333; cursor: pointer; font-size: 16px; padding: 10px 20px; text-align: center; text-decoration: none; text-transform: uppercase; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#ccc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff'; this.style.color='#333';">❤️</button></a>  │ <a href="{{ data['download'] }}"><button style="background-color: #fff; border: 1px solid #ccc; border-radius: 10px; color: #333; cursor: pointer; font-size: 16px; padding: 10px 20px; text-align: center; text-decoration: none; text-transform: uppercase; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#ccc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff'; this.style.color='#333';">📥</button></a> │ <a href="/hate/{{ vid }}"><button style="background-color: #fff; border: 1px solid #ccc; border-radius: 10px; color: #333; cursor: pointer; font-size: 16px; padding: 10px 20px; text-align: center; text-decoration: none; text-transform: uppercase; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#ccc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff'; this.style.color='#333';">💩</button></a></center>
+<center><a href="/like/{{ vid }}"><button style="background-color: #fff; border: 1px solid #ccc; border-radius: 10px; color: #333; cursor: pointer; font-size: 16px; padding: 10px 20px; text-align: center; text-decoration: none; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#ccc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff'; this.style.color='#333';">❤️</button></a>  │ <a href="{{ data['download'] }}"><button style="background-color: #fff; border: 1px solid #ccc; border-radius: 10px; color: #333; cursor: pointer; font-size: 16px; padding: 10px 20px; text-align: center; text-decoration: none; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#ccc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff'; this.style.color='#333';">📥</button></a> │ <a href="/hate/{{ vid }}"><button style="background-color: #fff; border: 1px solid #ccc; border-radius: 10px; color: #333; cursor: pointer; font-size: 16px; padding: 10px 20px; text-align: center; text-decoration: none; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#ccc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff'; this.style.color='#333';">💩</button></a></center>
 </article><script async="">
 document.write(
   '<script src="http://' +
   (location.host || 'localhost').split(':')[0] +
   ':35729/livereload.js?snipver=1" async></' +
   'script>')
-</script><script src="video_files/livereload.js" async=""></script>
+</script>
+<center><p>⚡ 当前网站共有用户: <b>{{ user_num }}</b> 位 │ Ta们共收藏了: <b>{{ video_num }}</b> 部作品 🔫</p></center>
+<script src="video_files/livereload.js" async=""></script>
 </body></html>

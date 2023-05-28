@@ -36,7 +36,7 @@ def analysis_video(vid):
     for h1 in soup.find_all('h1'):
         if 'lhgt' in str(h1):
             name=h1.text
-    return {'name':name,'background':soup.find('video')['poster'],'download':download}
+    return {'name':name,'pic':soup.find('video')['poster'],'download':download}
 
 def search(word,page):
     r=requests.post('https://s.%s/search'%domain.replace('https://',''),headers={'Content-type':'application/x-www-form-urlencoded'},data={'title':str(word),'current':str(page),'size':'16','source':'v1'})
