@@ -70,6 +70,15 @@ def get_realtime():
 		video.append(len(u['star']))
 	return {'user_num':user_num,'video_num':sum(video)}
 
+# 获取含关键词的数据
+def get_search(keyword,start_position):
+	all_info=[]
+	with open('search_data.json','r')as file:
+		for d in json.loads(file.read()):
+			if keyword in d['name']:
+				all_info.append(d)
+	return all_info[(start_position-1)*16:start_position*16]
+
 # index页面
 @app.route('/')
 def index():
@@ -82,10 +91,13 @@ def index():
 	else:
 		return render_template('index.html',word='🌈 欢迎! %s'%name,page_word='首页',data=x8.analysis_page(1),page=True,next_page=2,user=True,user_num=info['user_num'],video_num=info['video_num'])
 
-# 视频页面
+# 视频单页
 @app.route('/video/<string:vid>')
 def video(vid):
-	cookie=request.cookies
+	if vid=='page':
+		pass
+	else:
+		cookie=request.cookies
 	name=cookie.get('name')
 	pwd=cookie.get('pwd')
 	info=get_realtime()
@@ -94,9 +106,9 @@ def video(vid):
 	else:
 		return render_template('video.html',word='🎉 欢迎! %s'%name,data=x8.analysis_video(vid),vid=vid,user=True,user_num=info['user_num'],video_num=info['video_num'])
 
-# 页面
-@app.route('/page/<string:page>')
-def page(page):
+# 视频页面
+@app.route('/video/page/<string:page>')
+def video_page(page):
 	cookie=request.cookies
 	name=cookie.get('name')
 	pwd=cookie.get('pwd')
@@ -111,6 +123,66 @@ def page(page):
 			return render_template('index.html',word='👻 目前还未注册 or 登陆, 无法使用收藏功能!',data=x8.analysis_page(page),page=False,next_page=int(page)+1,previous_page=int(page)-1,page_word='第%s页'%page,user=False,user_num=info['user_num'],video_num=info['video_num'])
 		else:
 			return render_template('index.html',word='⭐ 欢迎! %s'%name,data=x8.analysis_page(page),page=False,next_page=int(page)+1,previous_page=int(page)-1,page_word='第%s页'%page,user=True,user_num=info['user_num'],video_num=info['video_num'])
+
+# 标签页面
+@app.route('/tags/<string:tag>/page/<string:page>')
+def tag_page(tag,page):
+	cookie=request.cookies
+	name=cookie.get('name')
+	pwd=cookie.get('pwd')
+	info=get_realtime()
+	if int(page)==1:
+		if name==None:
+			return render_template('tag.html',word='👾 目前还未注册 or 登陆, 无法使用收藏功能!',data=x8.analysis_tag(tag,1),tag=tag,page=True,next_page=2,page_word=tag,user=False,user_num=info['user_num'],video_num=info['video_num'])
+		else:
+			return render_template('tag.html',word='🔥 欢迎! %s'%name,data=x8.analysis_tag(tag,1),tag=tag,page=True,next_page=2,page_word=tag,user=True,user_num=info['user_num'],video_num=info['video_num'])
+	else:
+		if name==None:
+			return render_template('tag.html',word='👻 目前还未注册 or 登陆, 无法使用收藏功能!',data=x8.analysis_tag(tag,page),tag=tag,page=False,next_page=int(page)+1,previous_page=int(page)-1,page_word='第%s页'%page,user=False,user_num=info['user_num'],video_num=info['video_num'])
+		else:
+			return render_template('tag.html',word='⭐ 欢迎! %s'%name,data=x8.analysis_tag(tag,page),tag=tag,page=False,next_page=int(page)+1,previous_page=int(page)-1,page_word='第%s页'%page,user=True,user_num=info['user_num'],video_num=info['video_num'])
+
+# 所有标签
+@app.route('/tags')
+def tags():
+	cookie=request.cookies
+	name=cookie.get('name')
+	pwd=cookie.get('pwd')
+	info=get_realtime()
+	if name==None:
+		return render_template('tags.html',word='🤖 目前还未注册 or 登陆, 无法使用收藏功能!',tags=x8.get_tags(),page_word='标签',user=False,user_num=info['user_num'],video_num=info['video_num'])
+	else:
+		return render_template('tags.html',word='🌈 欢迎! %s'%name,tags=x8.get_tags(),page_word='标签',user=True,user_num=info['user_num'],video_num=info['video_num'])
+
+@app.route('/search',methods=['POST','GET'])
+def search():
+	cookie=request.cookies
+	name=cookie.get('name')
+	pwd=cookie.get('pwd')
+	info=get_realtime()
+	if request.method=='POST':
+		keyword=request.form['keyword']
+		response=make_response(redirect('/result/%s/page/1'%keyword))
+		return response
+	else:
+		return render_template('search.html')
+
+@app.route('/result/<string:keyword>/page/<string:page>')
+def result(keyword,page):
+	cookie=request.cookies
+	name=cookie.get('name')
+	pwd=cookie.get('pwd')
+	info=get_realtime()
+	if int(page)==1:
+		if name==None:
+			return render_template('result.html',word='🤖 目前还未注册 or 登陆, 无法使用收藏功能!',data=get_search(keyword,int(page)),keyword=keyword,page=True,next_page=2,page_word='搜索',user=False,user_num=info['user_num'],video_num=info['video_num'])
+		else:
+			return render_template('result.html',word='🔥 欢迎! %s'%name,data=get_search(keyword,int(page)),page=True,next_page=2,keyword=keyword,page_word='搜索',user=True,user_num=info['user_num'],video_num=info['video_num'])
+	else:
+		if name==None:
+			return render_template('result.html',word='👻 目前还未注册 or 登陆, 无法使用收藏功能!',data=get_search(keyword,int(page)),keyword=keyword,page=False,next_page=int(page)+1,previous_page=int(page)-1,page_word='第%s页'%page,user=False,user_num=info['user_num'],video_num=info['video_num'])
+		else:
+			return render_template('result.html',word='⭐ 欢迎! %s'%name,data=get_search(keyword,int(page)),page=False,keyword=keyword,next_page=int(page)+1,previous_page=int(page)-1,page_word='第%s页'%page,user=True,user_num=info['user_num'],video_num=info['video_num'])
 
 # 登陆页面
 @app.route('/login',methods=['POST','GET'])
@@ -141,7 +213,7 @@ def star():
 	pwd=cookie.get('pwd')
 	info=get_realtime()
 	if name==None:
-		return render_template('login.html',word=' 🤖目前还未注册 or 登陆, 无法使用收藏功能!',user_num=info['user_num'],video_num=info['video_num'])
+		return render_template('login.html',word='🤖 目前还未注册 or 登陆, 无法使用收藏功能!',user_num=info['user_num'],video_num=info['video_num'])
 	else:
 		data=get_star(name)
 		return render_template('star.html',word='🌈 %s的收藏 (共%s个) :'%(name,len(data)),data=data,user=True,user_num=info['user_num'],video_num=info['video_num'])
@@ -179,10 +251,11 @@ def hate(vid):
 def about():
 	cookie=request.cookies
 	name=cookie.get('name')
-	if name==None:
-		name='无名绅士'
 	info=get_realtime()
-	return render_template('about.html',word='🎉 欢迎不知道来自哪里的%s!'%name,user_num=info['user_num'],video_num=info['video_num'])
+	if name==None:
+		return render_template('about.html',word='🎉 欢迎不知道来自哪里的无名绅士!',user_num=info['user_num'],video_num=info['video_num'])
+	else:
+		return render_template('about.html',word='🎉 欢迎不知道来自哪里的%s!'%name,user=True,user_num=info['user_num'],video_num=info['video_num'])
 
 # 退出登陆
 @app.route('/logout')

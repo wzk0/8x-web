@@ -1067,50 +1067,19 @@ body .markdown-body
 .highlight .vi{color:teal}
 .highlight .il{color:#009999}
 .highlight .gc{color:#999;background-color:#EAF2F5}
-</style><title>Not 8X │ 关于</title></head><body><article class="markdown-body"><h1 id="not-8x"><strong><a href="/">Not 8X</a></strong><a class="headerlink" href="#not-8x" title="Permanent link"></a></h1>
-<h5 id="_1"><strong>│ <a href="/search">🔍 搜索</a> │ <a href="/tags">✉️ 标签</a> │ <a href="/about">👀 关于</a> │ {% if user %}<a href="/star">❤️ 收藏夹</a> │ <a href="/logout">🔓 登出</a>{% else %}<a href="/login">🔒 注册/登陆</a>{% endif %}</strong><a class="headerlink" href="#_1" title="Permanent link"></a></h5>
+</style><title>Not 8X │ 注册/登陆</title></head><body><article class="markdown-body"><h1 id="not-8x"><strong><a href="/">Not 8X</a></strong><a class="headerlink" href="#not-8x" title="Permanent link"></a></h1>
 <blockquote>
 <p>正所谓小lu<strong>怡情</strong>, 大lu<strong>伤身</strong>…🙏</p>
 </blockquote>
 <h5 id="word">{{ word }}<a class="headerlink" href="#word" title="Permanent link"></a></h5>
-<hr>
-<h3 id="_1">😵‍💫 看不懂网页?<a class="headerlink" href="#_1" title="Permanent link"></a></h3>
-<blockquote>
-<p>以下是这个网站出现的所有包含信息的emoji:</p>
-</blockquote>
-<div class="highlight"><pre>emoji - 含义:
-🙏 - 请你注意身体健康
-👈 - 上(前)一页
-👉 - 下(后)一页
-❤️ - 收藏
-📥 - 下载
-💩 - 取消收藏(看不下去了)
-</pre></div>
-<hr>
-<h3 id="_2">🔫 为什么做这个?<a class="headerlink" href="#_2" title="Permanent link"></a></h3>
-<blockquote>
-<p>服务大众!</p>
-</blockquote>
-<hr>
-<h3 id="_3">🙉 为什么有点卡?<a class="headerlink" href="#_3" title="Permanent link"></a></h3>
-<blockquote>
-<p>没有自己的服务器, 整个网站运行在<code>Railway</code>上.</p>
-</blockquote>
-<hr>
-<h3 id="_4">📱 开源?<a class="headerlink" href="#_4" title="Permanent link"></a></h3>
-<blockquote>
-<p>源代码: <a class="magiclink magiclink-github magiclink-repository" href="https://github.com/wzk0/8x-web" title="GitHub Repository: wzk0/8x-web">wzk0/8x-web</a></p>
-</blockquote>
-<hr>
-<h3 id="_5">🔧 有问题/建议?<a class="headerlink" href="#_5" title="Permanent link"></a></h3>
-<blockquote>
-<p>可以直接在Github提, 或者从我的博客: <a href="https://wzk0.github.io/">https://wzk0.github.io/</a> 获取我(<code>听话的便当</code>)的联系信息</p>
-</blockquote>
-<hr>
-<h3 id="_6">❤️ 最后?<a class="headerlink" href="#_6" title="Permanent link"></a></h3>
-<blockquote>
-<p>感谢使用!</p>
-</blockquote></article><script async="">
+<hr><br>
+<center>
+  <form method="post">
+  <input required type="text" id="keyword" name="keyword" placeholder="请输入关键词" style="background-color: #fff; border: 1px solid #ccc; border-radius: 10px; color: #333; cursor: pointer; font-size: 16px; padding: 10px 20px; text-align: center; text-decoration: none; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#ccc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff'; this.style.color='#333';"><br><br>
+  <button type="submit" style="background-color: #fff; border: 1px solid #ccc; border-radius: 10px; color: #333; cursor: pointer; font-size: 16px; padding: 10px 20px; text-align: center; text-decoration: none; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#ccc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='#fff'; this.style.color='#333';">👌</button>
+</form>
+</center>
+</article><script async="">
 document.write(
   '<script src="http://' +
   (location.host || 'localhost').split(':')[0] +
@@ -1118,6 +1087,5 @@ document.write(
   'script>')
 </script>
 <center><p>⚡ 当前网站共有用户: <b>{{ user_num }}</b> 位 │ Ta们共收藏了: <b>{{ video_num }}</b> 部作品 🔫</p></center>
-<script src="about_files/livereload.js" async="">
-</script>
+<script src="login_files/livereload.js" async=""></script>
 </body></html>
